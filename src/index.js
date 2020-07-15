@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Header from "./components/Header";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+      <App>
+          <Header headerTitle="Simple Form"/>
+      </App>
   </React.StrictMode>,
   document.getElementById('root')
 );

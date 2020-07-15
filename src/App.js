@@ -1,26 +1,63 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import LoginScreen from "./components/LoginScreen";
+import HomeScreen from "./components/HomeScreen";
+import MyCard from "./components/MyCard";
+import {Container} from "react-bootstrap/cjs";
+import FormSample from "./components/Form";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component{
+    state = {
+        isLoggedIn: false,
+        listData: [
+            {title: "Title Satu", subtitle: 'subtitle satu', text: 'text satu'},
+            {title: "Title dua", subtitle: 'subtitle dua', text: 'text dua'}
+        ],
+        names: [],
+        componentName : null
+    }
+
+    onSubmitAdd = (name) => {
+        this.state.names.push(name)
+        this.setState({...this.state, names: this.state.names, componentName: <MyCard onDeleteCard={this.onDelete} names={this.state.names}/>, name: ""})
+    }
+
+    onAuthenticate = () => {
+        this.setState({isLoggedIn: true})
+    }
+
+    onDelete = (index) => {
+        this.setState({...this.state, names: this.state.names.splice(1, index)})
+    }
+
+    onLogoutAuthenticate = () => {
+        this.setState({isLoggedIn: false})
+    }
+
+    render() {
+        let currentScreen;
+        if (this.state.isLoggedIn) {
+            currentScreen = <HomeScreen onAuth={this.onLogoutAuthenticate}/>
+        } else {
+            currentScreen = <LoginScreen onAuth={this.onAuthenticate}/>
+        }
+        return (
+            <div className="App">
+                {/*{currentScreen}*/}
+                <Container fluid>
+                    {this.props.children}
+                    <FormSample onSubmitAdd={this.onSubmitAdd} handleChanges={this.handleChanges}/>
+                    {this.state.componentName}
+                    {/*<Row>*/}
+                    {/*    <Col><ButtonAdd/></Col>*/}
+                    {/*</Row>*/}
+                    {/*<Row>*/}
+                    {/*    <MyCard/>*/}
+                    {/*</Row>*/}
+                </Container>
+            </div>
+        );
+    }
 }
 
 export default App;
