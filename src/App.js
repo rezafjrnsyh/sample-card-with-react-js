@@ -4,7 +4,8 @@ import LoginScreen from "./components/LoginScreen";
 import HomeScreen from "./components/HomeScreen";
 import MyCard from "./components/MyCard";
 import {Container} from "react-bootstrap/cjs";
-import FormSample from "./components/Form";
+import Product from "./pages/product/Product";
+// import FormSample from "./components/Form";
 
 class App extends React.Component{
     state = {
@@ -46,8 +47,9 @@ class App extends React.Component{
                 {/*{currentScreen}*/}
                 <Container fluid>
                     {this.props.children}
-                    <FormSample onSubmitAdd={this.onSubmitAdd} handleChanges={this.handleChanges}/>
-                    {this.state.componentName}
+                    <Product/>
+                    {/*<FormSample onSubmitAdd={this.onSubmitAdd} handleChanges={this.handleChanges}/>*/}
+                    {/*{this.state.componentName}*/}
                     {/*<Row>*/}
                     {/*    <Col><ButtonAdd/></Col>*/}
                     {/*</Row>*/}
